@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="ProfileInformationPerm" title="[kiror] Profile information view permission" version_string="0.0" version_id="0" url="https://github.com/adlerosn/" install_callback_class="" install_callback_method="" uninstall_callback_class="" uninstall_callback_method="">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates/>
+  <admin_template_modifications/>
+  <code_events/>
+  <code_event_listeners/>
+  <cron/>
+  <email_templates/>
+  <email_template_modifications/>
+  <optiongroups/>
+  <permissions>
+    <permission_groups/>
+    <permissions>
+      <permission permission_group_id="general" permission_id="viewProfileInformationTab" permission_type="flag" depend_permission_id="viewProfile" default_value="unset" interface_group_id="generalPermissions" display_order="51"/>
+    </permissions>
+    <interface_groups/>
+  </permissions>
+  <phrases>
+    <phrase title="permission_general_viewProfileInformationTab" version_id="0" version_string="0.0"><![CDATA[View member profile "Information" tab]]></phrase>
+  </phrases>
+  <route_prefixes/>
+  <style_properties/>
+  <templates/>
+  <public_template_modifications>
+    <modification template="member_view" modification_key="removeInfomationButtonFromMemberView" description="Remove Infomation Button From Member View" execution_order="1000" enabled="1" action="str_replace">
+      <find><![CDATA[<li><a href="{$requestPaths.requestUri}#info">{xen:phrase information}</a></li>]]></find>
+      <replace><![CDATA[<xen:if is="{$visitor.permissions.general.viewProfileInformationTab}">$0</xen:if>]]></replace>
+    </modification>
+    <modification template="member_view" modification_key="removeInfomationSectionFromMemberView" description="Remove Infomation Section From Member View" execution_order="10" enabled="1" action="preg_replace">
+      <find><![CDATA[#<li id="info" class="profileContent">.*?\$user.signature.*?</xen:if>.*?</li>#s]]></find>
+      <replace><![CDATA[<xen:if is="{$visitor.permissions.general.viewProfileInformationTab}">
+			$0
+			</xen:if>]]></replace>
+    </modification>
+  </public_template_modifications>
+  <bb_code_media_sites/>
+  <bb_codes/>
+</addon>
